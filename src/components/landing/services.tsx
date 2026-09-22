@@ -26,8 +26,8 @@ const PACKAGES = [
     id: "harvest",
     name: "The Harvest",
     price: "$650",
-    image: "/images/package-harvest.jpg",
-    alt: "A still life of heirloom pumpkins in crates, ready for a stoop install.",
+    image: "",
+    alt: "",
     description:
       "A tasteful harvest for a smaller stoop or a lighter touch — styled on site, still mixed in orange, ghost white, and specialty pumpkins, still taken away when the season turns.",
     included: [
@@ -49,15 +49,19 @@ export function Services() {
       <div className="mx-auto flex max-w-6xl flex-col gap-24">
         {PACKAGES.map((pkg) => (
           <article key={pkg.id} id={pkg.id} className="scroll-mt-32">
-            <div className="overflow-hidden rounded-lg">
-              <img
-                src={pkg.image}
-                alt={pkg.alt}
-                className="aspect-[16/10] w-full object-cover object-center sm:aspect-[3/2]"
-              />
-            </div>
+            {pkg.image ? (
+              <div className="overflow-hidden rounded-lg">
+                <img
+                  src={pkg.image}
+                  alt={pkg.alt}
+                  className="aspect-[16/10] w-full object-cover object-center sm:aspect-[3/2]"
+                />
+              </div>
+            ) : null}
 
-            <div className="mt-10 grid gap-10 lg:mt-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
+            <div
+              className={`grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16 ${pkg.image ? "mt-10 lg:mt-14" : ""}`}
+            >
               <div>
                 <p className="text-[0.7rem] font-medium uppercase tracking-[0.22em] text-terracotta">
                   The offering

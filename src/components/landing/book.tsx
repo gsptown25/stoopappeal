@@ -21,6 +21,7 @@ const CITIES = [
   "McMinnville",
   "Milwaukie",
   "Newberg",
+  "Oregon City",
   "Portland",
   "Sherwood",
   "Tualatin",
@@ -294,7 +295,7 @@ export function Book() {
                   options={CITIES}
                 />
               </Field>
-              <Field label="Notes" className="sm:col-span-2">
+              <Field label="Notes for Jade" className="sm:col-span-2">
                 <Textarea
                   id="notes"
                   name="notes"
