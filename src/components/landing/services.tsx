@@ -19,7 +19,7 @@ const PACKAGES = [
       "2 straw bales",
       "2 bundles of corn stalks",
       "Design, delivery, and professional styling",
-      "End-of-season removal, cooked into soup for local houseless kitchens",
+      "End-of-season removal included, cooked into soup for local houseless kitchens",
     ],
   },
   {
@@ -38,7 +38,7 @@ const PACKAGES = [
       "Assorted pie pumpkins and minis",
       "2 bundles of corn stalks",
       "Design, delivery, and professional styling",
-      "End-of-season removal, cooked into soup for local houseless kitchens",
+      "End-of-season removal included, cooked into soup for local houseless kitchens",
     ],
   },
 ] as const;
@@ -95,7 +95,9 @@ export function Services() {
                       strokeWidth={2}
                       aria-hidden="true"
                     />
-                    <span>{item}</span>
+                    <span className={item.startsWith("End-of-season") ? "font-semibold" : undefined}>
+                      {item}
+                    </span>
                   </li>
                 ))}
               </ul>
