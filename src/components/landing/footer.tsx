@@ -7,7 +7,7 @@ export function Footer() {
         <div>
           <BrandMark />
           <p className="mt-3 max-w-xs text-sm leading-relaxed text-muted">
-            Portland's porch concierge. One harvest, done completely.
+            Portland's porch concierge. Harvested and Delivered.
           </p>
         </div>
         <nav className="flex flex-wrap items-center gap-x-8 gap-y-3" aria-label="Footer">
@@ -34,8 +34,8 @@ export function Footer() {
       <div className="border-t border-line">
         <div className="mx-auto flex max-w-6xl flex-col gap-2 px-5 py-5 text-xs text-muted sm:flex-row sm:items-center sm:justify-between sm:px-8">
           <p>© {new Date().getFullYear()} Stoop Appeal · Portland, Oregon</p>
-          <a href="mailto:hello@stoopappeal.com" className="hover:text-ink">
-            hello@stoopappeal.com
+          <a href="mailto:jade@stoopappeal.com" className="hover:text-ink">
+            Jade@stoopappeal.com
           </a>
         </div>
       </div>

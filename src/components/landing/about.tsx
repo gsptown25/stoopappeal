@@ -4,9 +4,9 @@ export function About() {
       <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[0.92fr_1.08fr] lg:items-center lg:gap-16">
         <div className="order-2 overflow-hidden rounded-lg lg:order-1">
           <img
-            src="/images/about.jpg"
-            alt="Mara Quinn arranging white and blush pumpkins on a Portland craftsman porch."
-            className="aspect-[4/5] w-full object-cover object-top"
+            src="/images/about-jade-garth.jpg"
+            alt="Jade and Garth of Stoop Appeal sitting on the front steps of their Portland home."
+            className="aspect-[3/2] w-full object-cover object-[center_40%]"
           />
         </div>
 
@@ -15,35 +15,23 @@ export function About() {
             About us
           </p>
           <h2 className="mt-2 font-display text-4xl font-medium tracking-tight text-ink sm:text-5xl">
-            I am so glad you are here.
+            Our mission is to seamlessly deliver the magic of the harvest
+            season directly to your door.
           </h2>
           <div className="mt-6 space-y-4 text-[1.02rem] leading-relaxed text-muted">
             <p>
-              I'm Mara Quinn — the person who will text you the morning of
-              your install, who will stand in the drizzle deciding whether the
-              Fairytale belongs on the second step or the third, and who still
-              does a quiet little turn when a stoop looks exactly right.
-            </p>
-            <p>
-              I started dressing my own Eastmoreland porch in 2016, after too
-              many October weekends spent hauling pumpkins from farm stands and
-              second-guessing the arrangement in the dark. Friends asked. Then
-              their neighbors asked. In 2022 I stopped calling it a favor.
-            </p>
-            <p>
-              Stoop Appeal does one thing: the Fall Harvest Deluxe. Not a menu
-              of diminishing packages. Not a drop-and-go pile. A full, considered
-              harvest composed for your entry, left through Thanksgiving, then
-              collected and composted with a farm outside the city.
-            </p>
-            <p>
-              I live here. I know the light on Irvington stoops at four in the
-              afternoon in October. I would be honored to do yours.
+              The stoop is the first thing a guest sees — the invitation to
+              your home. Jade, Garth, and Hayden dress it with care. Jade
+              brings a designer's eye. Garth and Hayden bring the work and the
+              customer service: on time, in touch, and gone when the season
+              turns. We live here. We would be honored to do yours.
             </p>
           </div>
-          <p className="mt-8 font-display text-2xl italic text-ink">Mara Quinn</p>
+          <p className="mt-8 font-display text-2xl italic text-ink">
+            Jade, Garth & Hayden
+          </p>
           <p className="mt-1 text-xs uppercase tracking-[0.18em] text-muted">
-            Founder, Stoop Appeal · Portland, Oregon
+            Stoop Appeal · Portland, Oregon
           </p>
         </div>
       </div>

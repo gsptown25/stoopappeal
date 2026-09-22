@@ -5,11 +5,11 @@ export const Route = createFileRoute("/")({
   component: HomePage,
   head: () => ({
     meta: [
-      { title: "Stoop Appeal — Fall Harvest Deluxe" },
+      { title: "Stoop Appeal — The Gathering" },
       {
         name: "description",
         content:
-          "Portland's porch concierge. One offering: the Fall Harvest Deluxe — designed, delivered, styled, and collected.",
+          "Portland's porch concierge. The Gathering and The Harvest — designed, delivered, styled, and collected.",
       },
     ],
   }),

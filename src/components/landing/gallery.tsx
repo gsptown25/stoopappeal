@@ -1,21 +1,21 @@
 const SHOTS = [
   {
-    src: "/images/gallery-victorian.jpg",
-    alt: "A cream Victorian porch with a deluxe pumpkin cascade down a long stoop of stairs.",
-    caption: "Laurelhurst",
+    src: "/images/gallery-large.jpg",
+    alt: "A wood front door flanked by two abundant pumpkin harvests, dried corn, and a hanging basket on a stone porch.",
     className: "md:col-span-2 md:row-span-2",
+    imgClass: "object-center",
   },
   {
-    src: "/images/gallery-modern.jpg",
-    alt: "A modern black-door entry styled with a monochromatic white and cream pumpkin display.",
-    caption: "Eastmoreland",
+    src: "/images/gallery-small.jpg",
+    alt: "Two pumpkin harvests stacked around stone lantern pedestals at a Portland entry.",
     className: "",
+    imgClass: "object-[center_38%]",
   },
   {
-    src: "/images/still-life.jpg",
-    alt: "Still life of cream, blush, sage, and terracotta heirloom pumpkins with dried eucalyptus.",
-    caption: "The harvest",
+    src: "/images/gallery-close.jpg",
+    alt: "A walnut door on white siding with hay, dried corn, and heirloom pumpkins piled on both sides.",
     className: "",
+    imgClass: "object-[center_42%]",
   },
 ] as const;
 
@@ -33,7 +33,7 @@ export function Gallery() {
             </h2>
           </div>
           <p className="max-w-sm text-sm leading-relaxed text-muted">
-            Cream, blush, sage, and a measured amount of classic orange —
+            Classic orange with ghost white and sage heirlooms —
             composed to the architecture, never dropped in a pile.
           </p>
         </div>
@@ -47,11 +47,8 @@ export function Gallery() {
               <img
                 src={shot.src}
                 alt={shot.alt}
-                className="size-full min-h-64 object-cover transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03] md:min-h-0"
+                className={`size-full min-h-64 object-cover transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03] md:min-h-0 ${shot.imgClass}`}
               />
-              <figcaption className="absolute bottom-3 left-3 rounded-full bg-paper/90 px-3 py-1 text-[0.65rem] font-medium uppercase tracking-[0.16em] text-ink">
-                {shot.caption}
-              </figcaption>
             </figure>
           ))}
         </div>

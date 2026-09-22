@@ -4,35 +4,52 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
 const WEEKS = [
-  "Week of September 21, 2026",
   "Week of September 28, 2026",
   "Week of October 5, 2026",
   "Week of October 12, 2026",
   "Week of October 19, 2026",
 ] as const;
 
-const NEIGHBORHOODS = [
-  "Irvington",
-  "Laurelhurst",
-  "Eastmoreland",
-  "Sellwood / Westmoreland",
-  "Alberta / Concordia",
-  "Pearl / Northwest",
-  "Lake Oswego",
-  "West Linn",
+const CITIES = [
   "Beaverton",
-  "Other — tell us in the notes",
+  "Canby",
+  "Clackamas",
+  "Forest Grove",
+  "Happy Valley",
+  "Hillsboro",
+  "Lake Oswego",
+  "McMinnville",
+  "Milwaukie",
+  "Newberg",
+  "Portland",
+  "Sherwood",
+  "Tualatin",
+  "West Linn",
+  "Wilsonville",
 ] as const;
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+const PACKAGES = [
+  "The Gathering — $1,250",
+  "The Harvest — $650",
+] as const;
+
+const BOOKING_INBOX = "jade@stoopappeal.com";
+
+const STRIPE_LINKS: Record<string, string> = {
+  "The Gathering — $1,250": "https://buy.stripe.com/14AdRbgJO1OU2Jz7j85Vu01",
+  "The Harvest — $650": "https://buy.stripe.com/fZudRbalq2SY6ZP9rg5Vu00",
+};
 
 type FormState = {
   name: string;
   email: string;
   phone: string;
   address: string;
-  neighborhood: string;
+  city: string;
   week: string;
+  package: string;
   notes: string;
 };
 
@@ -41,8 +58,9 @@ const EMPTY: FormState = {
   email: "",
   phone: "",
   address: "",
-  neighborhood: "",
+  city: "",
   week: "",
+  package: "The Gathering — $1,250",
   notes: "",
 };
 
@@ -50,33 +68,59 @@ export function Book() {
   const [form, setForm] = useState<FormState>(EMPTY);
   const [error, setError] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
 
   function update<K extends keyof FormState>(key: K, value: FormState[K]) {
     setForm((current) => ({ ...current, [key]: value }));
   }
 
-  function onSubmit(event: FormEvent) {
-    event.preventDefault();
-    if (!form.name.trim()) return setError("Please add your name.");
-    if (!EMAIL_RE.test(form.email.trim())) return setError("Please add a valid email.");
-    if (!form.phone.trim()) return setError("Please add a phone number.");
-    if (!form.address.trim()) return setError("Please add your street address.");
-    if (!form.neighborhood) return setError("Please choose a neighborhood.");
-    if (!form.week) return setError("Please choose an install week.");
+  function onSubmit(event: FormEvent<HTMLFormElement>) {
+    if (!form.name.trim()) {
+      event.preventDefault();
+      return setError("Please add your name.");
+    }
+    if (!EMAIL_RE.test(form.email.trim())) {
+      event.preventDefault();
+      return setError("Please add a valid email.");
+    }
+    if (!form.phone.trim()) {
+      event.preventDefault();
+      return setError("Please add a phone number.");
+    }
+    if (!form.address.trim()) {
+      event.preventDefault();
+      return setError("Please add your street address.");
+    }
+    if (!form.city) {
+      event.preventDefault();
+      return setError("Please choose a city.");
+    }
+    if (!form.week) {
+      event.preventDefault();
+      return setError("Please choose an install week.");
+    }
+    if (!form.package) {
+      event.preventDefault();
+      return setError("Please choose a package.");
+    }
+    const checkout = STRIPE_LINKS[form.package];
+    if (!checkout) {
+      event.preventDefault();
+      return setError("Please choose a package.");
+    }
 
-    const booking = {
-      ...form,
-      package: "Fall Harvest Deluxe",
-      at: new Date().toISOString(),
-    };
+    setError(null);
+    setSending(true);
+
     try {
       const existing = JSON.parse(localStorage.getItem("stoop-bookings") || "[]") as unknown[];
-      localStorage.setItem("stoop-bookings", JSON.stringify([...existing, booking]));
+      localStorage.setItem(
+        "stoop-bookings",
+        JSON.stringify([...existing, { ...form, at: new Date().toISOString() }]),
+      );
     } catch {
-      /* preview storage can be unavailable; the confirmation still stands */
+      /* preview storage can be unavailable */
     }
-    setError(null);
-    setSubmitted(true);
   }
 
   return (
@@ -90,29 +134,32 @@ export function Book() {
             Reserve your week.
           </h2>
           <p className="mt-4 text-[1.02rem] leading-relaxed text-muted">
-            Fall Harvest Deluxe is our only offering, and we take a limited
-            number of stoops each week. Tell us about your entry — we'll
-            confirm within two business days.
+            Two packages, a limited number of stoops each week. Tell us about
+            your entry — we'll confirm within one calendar day.
           </p>
           <dl className="mt-10 space-y-5 text-sm">
             <div>
               <dt className="uppercase tracking-[0.16em] text-muted">The package</dt>
-              <dd className="mt-1 text-ink">Fall Harvest Deluxe · $1,450</dd>
+              <dd className="mt-1 text-ink">
+                The Gathering · $1,250
+                <br />
+                The Harvest · $650
+              </dd>
             </div>
             <div>
               <dt className="uppercase tracking-[0.16em] text-muted">Service area</dt>
               <dd className="mt-1 text-ink">
-                Greater Portland. Travel beyond the metro by request.
+                Greater Portland Metro.
               </dd>
             </div>
             <div>
               <dt className="uppercase tracking-[0.16em] text-muted">Questions</dt>
               <dd className="mt-1">
                 <a
-                  href="mailto:hello@stoopappeal.com"
+                  href="mailto:jade@stoopappeal.com"
                   className="text-ink underline decoration-line underline-offset-4 hover:text-terracotta"
                 >
-                  hello@stoopappeal.com
+                  Jade@stoopappeal.com
                 </a>
               </dd>
             </div>
@@ -126,12 +173,12 @@ export function Book() {
                 You're on the list
               </p>
               <h3 className="mt-3 font-display text-3xl font-medium tracking-tight text-ink">
-                We'll be in touch within two business days.
+                We'll be in touch within one calendar day.
               </h3>
               <p className="mt-4 max-w-md text-sm leading-relaxed text-muted">
-                A note is on its way to confirm your Fall Harvest Deluxe and
-                install week. If anything about the stoop needs a second look,
-                Mara will ask for a photo then.
+                A note is on its way to confirm your package and install week.
+                If anything about the stoop needs a second look, we'll ask for
+                a photo then.
               </p>
               <Button
                 type="button"
@@ -146,7 +193,39 @@ export function Book() {
               </Button>
             </div>
           ) : (
-            <form onSubmit={onSubmit} className="grid gap-4 sm:grid-cols-2" noValidate>
+            <form
+              action={`https://formsubmit.co/${BOOKING_INBOX}`}
+              method="POST"
+              onSubmit={onSubmit}
+              className="grid gap-4 sm:grid-cols-2"
+              noValidate
+            >
+              <input type="hidden" name="_captcha" value="false" />
+              <input type="hidden" name="_template" value="table" />
+              <input
+                type="hidden"
+                name="_subject"
+                value={`New Stoop Appeal booking — ${form.package}`}
+              />
+              <input
+                type="hidden"
+                name="_next"
+                value={STRIPE_LINKS[form.package] ?? ""}
+              />
+              <input
+                type="hidden"
+                name="message"
+                value={[
+                  `New booking from ${form.name.trim()}`,
+                  `Email: ${form.email.trim()}`,
+                  `Phone: ${form.phone.trim()}`,
+                  `Address: ${form.address.trim()}`,
+                  `City: ${form.city}`,
+                  `Week: ${form.week}`,
+                  `Package: ${form.package}`,
+                  `Notes: ${form.notes.trim() || "—"}`,
+                ].join("\n")}
+              />
               <Field label="Full name" className="sm:col-span-1">
                 <Input
                   id="name"
@@ -188,6 +267,14 @@ export function Book() {
                   options={WEEKS}
                 />
               </Field>
+              <Field label="Package" className="sm:col-span-2">
+                <Select
+                  id="package"
+                  value={form.package}
+                  onChange={(value) => update("package", value)}
+                  options={PACKAGES}
+                />
+              </Field>
               <Field label="Street address" className="sm:col-span-2">
                 <Input
                   id="address"
@@ -198,16 +285,16 @@ export function Book() {
                   placeholder="1842 NE 22nd Avenue"
                 />
               </Field>
-              <Field label="Neighborhood" className="sm:col-span-2">
+              <Field label="City" className="sm:col-span-2">
                 <Select
-                  id="neighborhood"
-                  value={form.neighborhood}
-                  onChange={(value) => update("neighborhood", value)}
-                  placeholder="Choose a neighborhood"
-                  options={NEIGHBORHOODS}
+                  id="city"
+                  value={form.city}
+                  onChange={(value) => update("city", value)}
+                  placeholder="Choose a city"
+                  options={CITIES}
                 />
               </Field>
-              <Field label="Notes for Mara" className="sm:col-span-2">
+              <Field label="Notes" className="sm:col-span-2">
                 <Textarea
                   id="notes"
                   name="notes"
@@ -222,8 +309,8 @@ export function Book() {
                 </p>
               ) : null}
               <div className="sm:col-span-2 mt-2">
-                <Button type="submit" size="lg" className="w-full sm:w-auto">
-                  Book Now
+                <Button type="submit" size="lg" className="w-full sm:w-auto" disabled={sending}>
+                  {sending ? "Sending…" : "Book Now"}
                 </Button>
               </div>
             </form>
@@ -263,7 +350,7 @@ function Select({
   id: string;
   value: string;
   onChange: (value: string) => void;
-  placeholder: string;
+  placeholder?: string;
   options: readonly string[];
 }) {
   return (
@@ -274,7 +361,7 @@ function Select({
       onChange={(event) => onChange(event.target.value)}
       className="flex h-11 w-full rounded-md bg-cream px-3.5 text-sm text-ink shadow-border transition-[box-shadow] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta/30"
     >
-      <option value="">{placeholder}</option>
+      {placeholder ? <option value="">{placeholder}</option> : null}
       {options.map((option) => (
         <option key={option} value={option}>
           {option}
