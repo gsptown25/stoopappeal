@@ -95,9 +95,11 @@ export function Services() {
                       strokeWidth={2}
                       aria-hidden="true"
                     />
-                    <span className={item.startsWith("End-of-season") ? "font-semibold" : undefined}>
-                      {item}
-                    </span>
+                    {item.startsWith("End-of-season") ? (
+                      <strong className="font-bold">{item}</strong>
+                    ) : (
+                      <span>{item}</span>
+                    )}
                   </li>
                 ))}
               </ul>
