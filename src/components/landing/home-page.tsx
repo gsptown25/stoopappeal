@@ -8,6 +8,7 @@ import { Header } from "@/components/landing/header";
 import { Hero } from "@/components/landing/hero";
 import { Process } from "@/components/landing/process";
 import { Services } from "@/components/landing/services";
+import { UpdatesPopup } from "@/components/landing/updates-popup";
 
 export function HomePage() {
   return (
@@ -54,6 +55,7 @@ export function HomePage() {
         <About />
       </main>
       <Footer />
+      <UpdatesPopup />
     </div>
   );
 }
