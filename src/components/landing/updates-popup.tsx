@@ -1,9 +1,9 @@
 import { useEffect, useId, useState, type FormEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { saveUpdateEmail } from "@/lib/save-update-email";
 
 const STORAGE_KEY = "stoop-updates";
-const INBOX = "jade@stoopappeal.com";
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export function UpdatesPopup() {
@@ -66,28 +66,7 @@ export function UpdatesPopup() {
     setError(null);
     setSending(true);
     try {
-      const body = new FormData();
-      body.append("_captcha", "false");
-      body.append("_subject", "Stoop Appeal — keep me updated");
-      body.append("_template", "table");
-      body.append("email", email.trim());
-      body.append(
-        "message",
-        `${email.trim()} asked to be kept updated on future Stoop Appeal offerings.`,
-      );
-      const response = await fetch(`https://formsubmit.co/ajax/${INBOX}`, {
-        method: "POST",
-        headers: { Accept: "application/json" },
-        body,
-      });
-      const result = (await response.json().catch(() => null)) as
-        | { success?: boolean | string }
-        | null;
-      const sent =
-        response.ok &&
-        result != null &&
-        (result.success === true || result.success === "true");
-      if (!sent) throw new Error("mail failed");
+      await saveUpdateEmail({ data: email.trim() });
       remember("joined");
       setDone(true);
     } catch {
