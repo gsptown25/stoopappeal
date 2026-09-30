@@ -46,6 +46,12 @@ export function UpdatesPopup() {
     }
   }
 
+  useEffect(() => {
+    if (!done) return;
+    const timer = window.setTimeout(() => setOpen(false), 900);
+    return () => window.clearTimeout(timer);
+  }, [done]);
+
   function close() {
     try {
       if (localStorage.getItem(STORAGE_KEY) !== "joined") {
