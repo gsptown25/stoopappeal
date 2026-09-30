@@ -19,7 +19,7 @@ const PACKAGES = [
       "2 straw bales",
       "2 bundles of corn stalks",
       "Design, delivery, and professional styling",
-      "End-of-season removal included, cooked into soup for local houseless kitchens",
+      "End-of-season removal included, then cooked into soup and pie and donated to local houseless shelters",
     ],
   },
   {
@@ -38,7 +38,7 @@ const PACKAGES = [
       "Assorted pie pumpkins and minis",
       "2 bundles of corn stalks",
       "Design, delivery, and professional styling",
-      "End-of-season removal included, cooked into soup for local houseless kitchens",
+      "End-of-season removal included, then cooked into soup and pie and donated to local houseless shelters",
     ],
   },
 ] as const;
