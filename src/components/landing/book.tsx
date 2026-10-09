@@ -39,8 +39,8 @@ const PACKAGES = [
 const BOOKING_INBOX = "jade@stoopappeal.com";
 
 const STRIPE_LINKS: Record<string, string> = {
-  "The Gathering — $995": "https://buy.stripe.com/14AdRbgJO1OU2Jz7j85Vu01",
-  "The Harvest — $495": "https://buy.stripe.com/fZudRbalq2SY6ZP9rg5Vu00",
+  "The Gathering — $995": "https://buy.stripe.com/dRm28talq1OUgAp1YO5Vu04",
+  "The Harvest — $495": "https://buy.stripe.com/aFaeVf2SYctyck96f45Vu03",
 };
 
 type FormState = {
