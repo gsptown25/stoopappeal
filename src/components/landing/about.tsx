@@ -23,7 +23,8 @@ export function About() {
               The stoop is the first thing a guest sees — the invitation to
               your home. Hayden and Garth dress it with care. They bring the
               work and the customer service: on time, with care, and gone when
-              the season turns. We live here. We would be honored to do yours.
+              the season turns. We'd be honored to give your home a warm
+              entrance for the season.
             </p>
           </div>
           <p className="mt-8 font-display text-2xl italic text-ink">
