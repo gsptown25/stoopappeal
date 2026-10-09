@@ -32,15 +32,15 @@ const CITIES = [
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const PACKAGES = [
-  "The Gathering — $1,250",
-  "The Harvest — $650",
+  "The Gathering — $995",
+  "The Harvest — $495",
 ] as const;
 
 const BOOKING_INBOX = "jade@stoopappeal.com";
 
 const STRIPE_LINKS: Record<string, string> = {
-  "The Gathering — $1,250": "https://buy.stripe.com/14AdRbgJO1OU2Jz7j85Vu01",
-  "The Harvest — $650": "https://buy.stripe.com/fZudRbalq2SY6ZP9rg5Vu00",
+  "The Gathering — $995": "https://buy.stripe.com/14AdRbgJO1OU2Jz7j85Vu01",
+  "The Harvest — $495": "https://buy.stripe.com/fZudRbalq2SY6ZP9rg5Vu00",
 };
 
 type FormState = {
@@ -61,7 +61,7 @@ const EMPTY: FormState = {
   address: "",
   city: "",
   week: "",
-  package: "The Gathering — $1,250",
+  package: "The Gathering — $995",
   notes: "",
 };
 
@@ -142,9 +142,9 @@ export function Book() {
             <div>
               <dt className="uppercase tracking-[0.16em] text-muted">The package</dt>
               <dd className="mt-1 text-ink">
-                The Gathering · $1,250
+                The Gathering · $995
                 <br />
-                The Harvest · $650
+                The Harvest · $495
               </dd>
             </div>
             <div>

@@ -5,7 +5,7 @@ const PACKAGES = [
   {
     id: "gathering",
     name: "The Gathering",
-    price: "$1,250",
+    price: "$995",
     image: "/images/package-front.jpg",
     alt: "The Gathering: two abundant pumpkin piles flanking a black front door with dried corn and hay.",
     description:
@@ -25,7 +25,7 @@ const PACKAGES = [
   {
     id: "harvest",
     name: "The Harvest",
-    price: "$650",
+    price: "$495",
     image: "",
     alt: "",
     description:
